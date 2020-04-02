@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtQml>
+#include "compteur.h"
 
 int main(int argc, char *argv[])
 {
@@ -8,13 +10,12 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-        &app, [url](QObject *obj, const QUrl &objUrl) {
-            if (!obj && url == objUrl)
-                QCoreApplication::exit(-1);
-        }, Qt::QueuedConnection);
-    engine.load(url);
+
+    Compteur aCompteur;
+    engine.rootContext()->setContextProperty("vueObjetCpt", &aCompteur);
+
+    const QUrl mainQml(QStringLiteral("qrc:/main.qml"));
+    engine.load(mainQml);
 
     return app.exec();
 }
