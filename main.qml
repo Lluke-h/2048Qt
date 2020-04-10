@@ -8,7 +8,7 @@ import QtQuick.Layouts 1.12
 Window {
     id: window
     visible: true
-    height: 600
+    height: 500
     //    height: 800
     //    minimumHeight: background.height + header.height + 10
     minimumWidth: background.width + 2*column.spacing
@@ -32,8 +32,8 @@ Window {
                 width: parent.width * 0.4
                 height: parent.height
                 anchors.right: parent.right
-                anchors.rightMargin: 4
-                spacing: 4
+                anchors.rightMargin: 6
+                spacing: 6
                 layoutDirection: Qt.RightToLeft
 
 
@@ -45,11 +45,11 @@ Window {
                 Rectangle {
                     id: scoreBoxBest
                     width: 0.5 * parent.width
-                    height: 0.9 * parent.height
+                    height: 0.8 * parent.height
                     color: "#bdbdbd"
                     radius: 10
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 4
+                    anchors.verticalCenter: parent.verticalCenter
+
 
 
                     Text {
@@ -83,18 +83,17 @@ Window {
                         color: "#868686"
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: qsTr("BEST")
-                        font.pixelSize: 12
+                        font.pixelSize: 10
                     }
                 }
 
                 Rectangle {
                     id: scoreBox
                     width: 0.5 * parent.width
-                    height: 0.9 * parent.height
+                    height: 0.8 * parent.height
                     color: "#bdbdbd"
                     radius: 10
-                    anchors.bottom: parent.bottom
-                    anchors.bottomMargin: 4
+                    anchors.verticalCenter: parent.verticalCenter
 
                     Text {
                         id: scoreValue
@@ -116,7 +115,7 @@ Window {
                         color: "#868686"
                         text: qsTr("SCORE")
                         anchors.horizontalCenter: parent.horizontalCenter
-                        font.pixelSize: 12
+                        font.pixelSize: 10
                     }
                 }
 
@@ -198,6 +197,60 @@ Window {
                     }
 
                 }
+
+
+            }
+
+            Grid {
+                id: gameGrid
+                width: 680
+                height: 680
+                anchors.fill: parent
+
+                property var tileMargin: 1.5
+                anchors.rightMargin: tileMargin
+                anchors.leftMargin: tileMargin
+                anchors.bottomMargin: tileMargin
+                anchors.topMargin: tileMargin
+                spacing: 0
+                rows: 5
+                columns: 5
+
+                Repeater{
+                    model: 6
+                    Tile{
+                        width : backgroundGrid.width / backgroundGrid.columns
+                        height: backgroundGrid.height / backgroundGrid.rows
+
+
+                    }
+
+
+                }
+                Repeater{
+                    model: 2
+                    Tile{
+                        width : backgroundGrid.width / backgroundGrid.columns
+                        height: backgroundGrid.height / backgroundGrid.rows
+                        opacity: 0
+
+
+                    }
+
+
+                }
+                Repeater{
+                    model: 6
+                    Tile{
+                        width : backgroundGrid.width / backgroundGrid.columns
+                        height: backgroundGrid.height / backgroundGrid.rows
+
+
+                    }
+
+
+                }
+
 
 
             }
