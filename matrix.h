@@ -14,13 +14,14 @@ public:
     void Resize(int newTaille);
     void Print();
     int Get(int col ,int row);
+    void InitMatrix(int value);
 
 
 
 private:
     void AllocateMatrix();
     void DeleteMatrix();
-    void InitMatrix(int value);
+
 
 
 };
