@@ -15,7 +15,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         compteur.cpp \
-        main.cpp
+        game.cpp \
+        main.cpp \
+        matrix.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +38,6 @@ DISTFILES += \
     Tile.qml
 
 HEADERS += \
-    compteur.h
+    compteur.h \
+    game.h \
+    matrix.h
