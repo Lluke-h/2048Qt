@@ -111,11 +111,12 @@ void Game::addTileRandom()
     {
         int i = rand() % size ;
         int j = rand()% size ;
+        int n = (rand()%2+1)*2;
         cout << i << " " << j; ;
         c++;
         if (board->Get(i, j) == 0)
         {
-            board->Set(i, j, 2);
+            board->Set(i, j, n);
             cout << "added";
             notAdded = false;
         }
