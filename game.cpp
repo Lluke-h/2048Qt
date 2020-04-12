@@ -30,7 +30,7 @@ Game::Game(QObject *parent) : QObject(parent)
     score = setScore(score, size);
     scoreMax = setScoreMax(score, scoreMax);
     cout << "========================= SCORE " << score << endl;
-    for (int i= 0; i < 4; i++){
+    for (int i= 0; i < 6; i++){
         move(3);
         board->Print();
         score = setScore(score, size);
@@ -52,8 +52,12 @@ tuple<bool, bool> Game::isMovePossible(int row, int col, int nextRow, int nextCo
         || (board->Get(row, col) != board->Get(nextRow, nextCol)
             && board->Get(nextRow, nextCol) != 0)                // The move is legal
         || board->Get(row, col) == 0                             // The cell to move is not empty
-        || fusionMatrix->Get(nextRow, nextCol) == 1)             // next cell has already been fused this move
-                   movePossible = false;
+        || fusionMatrix->Get(nextRow, nextCol) == 1             // next cell has already been fused this move
+        || fusionMatrix->Get(row, col) ==1)
+    {
+        movePossible = false;
+    }
+
 
     else if (board->Get(nextRow, nextCol) != 0) // if there is a fusion
     {
