@@ -22,21 +22,36 @@ Game::Game(QObject *parent) : QObject(parent)
     size = 4;
     score = 0;
     scoreMax = 0;
+    bool notOver = true;
     board->Resize(size);
     fusionMatrix->Resize(size);
     board->Print();
-    initGame();
-    board->Print();
-    score = setScore(score, size);
-    scoreMax = setScoreMax(score, scoreMax);
-    cout << "========================= SCORE " << score << endl;
-    for (int i= 0; i < 6; i++){
-        move(3);
-        board->Print();
-        score = setScore(score, size);
-        scoreMax = setScoreMax(score, scoreMax);
-        cout << "========================= SCORE " << score << endl;
+   // initGame();
+    //board->Print();
+    //score = setScore(score, size);
+    //scoreMax = setScoreMax(score, scoreMax);
+    //cout << "========================= SCORE " << score << endl;
+    //for (int i= 0; i < 6; i++){
+     //   move(3, false);
+      //  board->Print();
+     //   score = setScore(score, size);
+     //   scoreMax = setScoreMax(score, scoreMax);
+     //   cout << "========================= SCORE " << score << endl;
+     //   over = isGameOver(size);
+    //}
+    int c = 0;
+    for(int i = 0; i<size; i++)
+    {
+        for (int j = 0; j<size; j++){
+            c = ((rand()%2)+1)*2;
+            board->Set(i,j,c);
+            board->Print();
+
+        }
     }
+    notOver = isGameOver(size);
+    cout << "END ?" << notOver << endl;
+
 
 
 //    DisplayBoard();
@@ -53,24 +68,23 @@ tuple<bool, bool> Game::isMovePossible(int row, int col, int nextRow, int nextCo
             && board->Get(nextRow, nextCol) != 0)                // The move is legal
         || board->Get(row, col) == 0                             // The cell to move is not empty
         || fusionMatrix->Get(nextRow, nextCol) == 1             // next cell has already been fused this move
-        || fusionMatrix->Get(row, col) ==1)
-    {
+        || fusionMatrix->Get(row, col) ==1)                     //this cell results from a fusion
         movePossible = false;
-    }
+
 
 
     else if (board->Get(nextRow, nextCol) != 0) // if there is a fusion
-    {
         isFusion = true;
-    }
+
     return {movePossible, isFusion};
 }
 
-void Game::move(int direction)
+bool Game::move(int direction, bool trying) //trying is for gameOver
 {
     int startRow = 0, startCol = 0, rowStep = 1, colStep = 1;
     int rowDir[] = {1, 0, -1, 0};
     int colDir[] = {0, 1, 0, -1};
+    bool over = false;
     fusionMatrix->InitMatrix(0);
 
     bool somethingMoved, addTile = false;
@@ -94,26 +108,27 @@ void Game::move(int direction)
             {
                 int nextRow = i + rowDir[direction], nextCol = j + colDir[direction];
                 auto [movePossible, isFusion] = isMovePossible(i, j, nextRow, nextCol);
-                if (movePossible)
+                if (movePossible && !trying)
                 {
                     board->Set(nextRow, nextCol,board->Get(nextRow, nextCol) + board->Get(i,j) );
                     board->Set(i,j,0);
                     somethingMoved = true; addTile = true;
                     if (isFusion)
-                    {
-                        fusionMatrix->Set(nextRow, nextCol, 1);                       
-                    }
+                        fusionMatrix->Set(nextRow, nextCol, 1);
                 }
+                else if (trying && (movePossible || isFusion))
+                    over = true;
 
-                }
+             }
 
 
             }while(somethingMoved);
 
 
-    if (addTile)
+    if (addTile && !trying)
         addTileRandom();
 
+    return over;
 }
 
 
@@ -184,6 +199,21 @@ int Game::setScoreMax(int score, int scoreMax){
         return score;
     else
         return scoreMax;
+}
+
+bool Game::isGameOver(int size){
+    bool end = false;
+    int c;
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            c = board->Get(i,j);
+            if (c == 0)
+                end = true; //if a space is empty : possibility to carry on
+        }
+    }
+    if (!end) //if a move is possible
+        end = move(0, true) || move(1, true) || move(2, true) || move(3, true);
+    return end;
 }
 //void Game::setTile(int x, int y, int value)
 //{

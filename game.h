@@ -15,11 +15,12 @@ public:
 //    void startGame(int valeur);
 //    void setTile(int x, int y, int value);
     Q_INVOKABLE void addTileRandom();
-    Q_INVOKABLE void move(int direction);
+    Q_INVOKABLE bool move(int direction, bool trying);
     Q_INVOKABLE int setScore(int score, int size);
     Q_INVOKABLE int countTiles(int size);
     Q_INVOKABLE int setScoreMax(int score, int scoreMax);
     Q_INVOKABLE void initGame();
+    Q_INVOKABLE bool isGameOver(int size);
 
 //    void DisplayBoard();
 //    bool isGameOver();
