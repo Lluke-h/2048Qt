@@ -23,10 +23,8 @@ Game::Game(QObject *parent) : QObject(parent)
     score = 0;
     scoreMax = 0;
     bool notOver = true;
-    board->Resize(size);
-    fusionMatrix->Resize(size);
-    board->Print();
-   // initGame();
+
+    initGame(int size);
     //board->Print();
     //score = setScore(score, size);
     //scoreMax = setScoreMax(score, scoreMax);
@@ -138,7 +136,10 @@ bool Game::move(int direction, bool trying) //trying is for gameOver
 
 //}
 
-void Game::initGame(){
+void Game::initGame(int size){
+    board->Resize(size);
+    fusionMatrix->Resize(size);
+    board->Print();
     addTileRandom();
     addTileRandom();
 }

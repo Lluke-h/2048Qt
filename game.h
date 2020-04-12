@@ -19,7 +19,7 @@ public:
     Q_INVOKABLE int setScore(int score, int size);
     Q_INVOKABLE int countTiles(int size);
     Q_INVOKABLE int setScoreMax(int score, int scoreMax);
-    Q_INVOKABLE void initGame();
+    Q_INVOKABLE void initGame(int size);
     Q_INVOKABLE bool isGameOver(int size);
 
 //    void DisplayBoard();
