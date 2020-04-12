@@ -83,7 +83,7 @@ void Game::move(int direction)
         colStep = -1;
     }
     do{
-        cout << "LLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOP";
+        cout << "LLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOP" << endl;
         somethingMoved = false;
         for (int i = startRow; i>=0 && i<size; i += rowStep)
             for (int j = startCol; j>=0 && j<size; j+= colStep)
@@ -106,12 +106,10 @@ void Game::move(int direction)
 
             }while(somethingMoved);
 
-            if (addTile)
-            {
-                board->Print();
-                addTileRandom();
-                board->Print();
-            }
+
+    if (addTile)
+        addTileRandom();
+
 }
 
 
@@ -136,12 +134,10 @@ void Game::addTileRandom()
         int i = rand() % size ;
         int j = rand()% size ;
         int n = 2 + (rand()%10>7)*2; // adds mostly twos, one in five chance of adding a four
-        cout << i << " " << j; ;
         c++;
         if (board->Get(i, j) == 0)
         {
             board->Set(i, j, n);
-            cout << "added";
             notAdded = false;
         }
     }
@@ -165,7 +161,15 @@ int Game::countTiles(int size)
 }
 
 int Game::setScore(int score, int size){
-    int tot = (countTiles(size));
+    int tot = 0;
+    int c;
+    for(int i = 0; i<size; i++){
+        for (int j = 0; j<size; j++){
+            c = (fusionMatrix->Get(i,j));
+            if (c == 1)
+                tot += board->Get(i,j);
+        }
+    }
     score += tot;
 
     return score;
