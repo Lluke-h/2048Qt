@@ -25,20 +25,20 @@ Game::Game(QObject *parent) : QObject(parent)
     board->Resize(size);
     fusionMatrix->Resize(size);
     board->Print();
-    board->Set(3,0,2);
-    board->Set(3,1,2);
-    board->Set(3,2,4);
-    board->Set(3,3,4);
+    initGame();
     board->Print();
-    score = setScore(0);
+    score = setScore(score, size);
     scoreMax = setScoreMax(score, scoreMax);
     cout << "========================= SCORE " << score << endl;
-    cout << "========================= SCORE MAX " << scoreMax << endl;
-    move(3);
-    score = setScore(score);
-    scoreMax = setScoreMax(score, scoreMax);
-    cout << "========================= SCORE2 " << score << endl;
-    cout << "========================= SCORE MAX2 " << scoreMax << endl;
+    for (int i= 0; i < 4; i++){
+        move(3);
+        board->Print();
+        score = setScore(score, size);
+        scoreMax = setScoreMax(score, scoreMax);
+        cout << "========================= SCORE " << score << endl;
+    }
+
+
 //    DisplayBoard();
 //    updateGame();
 }
@@ -116,10 +116,15 @@ void Game::move(int direction)
 
 
 
-//void Game::updateGame()
+//void Game::updateGame(int size, int score, int scoreM)
 //{
 
 //}
+
+void Game::initGame(){
+    addTileRandom();
+    addTileRandom();
+}
 
 void Game::addTileRandom()
 {
@@ -146,11 +151,11 @@ void Game::addTileRandom()
 
 }
 
-int Game::countTiles()
+int Game::countTiles(int size)
 {
     int tot = 0;
-    for(int i = 0; i<4; i++){
-        for (int j = 0; j<4; j++){
+    for(int i = 0; i<size; i++){
+        for (int j = 0; j<size; j++){
             tot += (board->Get(i,j));
             //cout << "On get" << tot << endl;
         }
@@ -159,8 +164,8 @@ int Game::countTiles()
     return tot;
 }
 
-int Game::setScore(int score){
-    int tot = (countTiles());
+int Game::setScore(int score, int size){
+    int tot = (countTiles(size));
     score += tot;
 
     return score;
