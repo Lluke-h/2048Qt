@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     Compteur aCompteur;
     Game game;
 
-
+    engine.rootContext()->setContextProperty("game", &game);
     engine.rootContext()->setContextProperty("vueObjetCpt", &aCompteur);
 //    engine.rootContext()->setContextProperty("game", &game);
 

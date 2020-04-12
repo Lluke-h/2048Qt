@@ -15,12 +15,11 @@ public:
 //    void startGame(int valeur);
 //    void setTile(int x, int y, int value);
     Q_INVOKABLE void addTileRandom();
-    Q_INVOKABLE void Move(int direction);
+    Q_INVOKABLE void move(int direction);
+//    void DisplayBoard();
 //    bool isGameOver();
 signals:
-//    void updateGame();
-//    void updateScore();
-//    void updateMaxScore();
+
 
 private:
     tuple<bool, bool> isMovePossible(int row, int col, int nextRow, int nextCol);

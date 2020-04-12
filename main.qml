@@ -15,6 +15,7 @@ Window {
     minimumHeight: 400
     title: qsTr("2048Qt")
 
+
     Column {
         id: column
         anchors.fill: parent
@@ -25,6 +26,30 @@ Window {
             width: parent.width
             height: Math.min(0.15 * parent.height, 75)
             color: "#e2dddd"
+
+            // Lin arrow keys to the move() function
+            Keys.onPressed: {
+                switch (event.key){
+                case Qt.Key_Up:
+                    vueObjetCpt.increment();
+                    game.move(2);
+
+                    break;
+                case Qt.Key_Left:
+                    game.move(3);
+
+                    break;
+                case Qt.Key_Right:
+                    game.move(1);
+
+                    break;
+                case Qt.Key_Down:
+                    vueObjetCpt.decrement();
+                    game.move(0);
+
+                    break;
+                }
+            }
 
 
             Row {
@@ -65,17 +90,7 @@ Window {
                         font.pointSize: 60
                         fontSizeMode: Text.Fit
                         anchors.margins: 4
-                        Keys.onPressed: {
-                            switch (event.key){
-                            case Qt.Key_Up:
-                                vueObjetCpt.increment();
-                                break;
-                            case Qt.Key_Down:
-                                vueObjetCpt.decrement();
 
-                                break;
-                            }
-                        }
                     }
 
                     Text {
@@ -181,8 +196,8 @@ Window {
                 anchors.bottomMargin: tileMargin
                 anchors.topMargin: tileMargin
                 spacing: 0
-                rows: 5
-                columns: 5
+                rows: 4
+                columns: 4
 
                 Repeater{
                     model: backgroundGrid.rows * backgroundGrid.columns
@@ -213,8 +228,8 @@ Window {
                 anchors.bottomMargin: tileMargin
                 anchors.topMargin: tileMargin
                 spacing: 0
-                rows: 5
-                columns: 5
+                rows: 4
+                columns: 4
 
                 Repeater{
                     model: 6
