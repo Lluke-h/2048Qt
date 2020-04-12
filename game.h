@@ -16,6 +16,10 @@ public:
 //    void setTile(int x, int y, int value);
     Q_INVOKABLE void addTileRandom();
     Q_INVOKABLE void move(int direction);
+    Q_INVOKABLE int setScore(int score);
+    Q_INVOKABLE int countTiles();
+    Q_INVOKABLE int setScoreMax(int score, int scoreMax);
+
 //    void DisplayBoard();
 //    bool isGameOver();
 signals:

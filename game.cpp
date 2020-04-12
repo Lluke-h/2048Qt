@@ -30,6 +30,15 @@ Game::Game(QObject *parent) : QObject(parent)
     board->Set(3,2,4);
     board->Set(3,3,4);
     board->Print();
+    score = setScore(0);
+    scoreMax = setScoreMax(score, scoreMax);
+    cout << "========================= SCORE " << score << endl;
+    cout << "========================= SCORE MAX " << scoreMax << endl;
+    move(3);
+    score = setScore(score);
+    scoreMax = setScoreMax(score, scoreMax);
+    cout << "========================= SCORE2 " << score << endl;
+    cout << "========================= SCORE MAX2 " << scoreMax << endl;
 //    DisplayBoard();
 //    updateGame();
 }
@@ -135,11 +144,34 @@ void Game::addTileRandom()
 
 
 
-
-
-
 }
 
+int Game::countTiles()
+{
+    int tot = 0;
+    for(int i = 0; i<4; i++){
+        for (int j = 0; j<4; j++){
+            tot += (board->Get(i,j));
+            //cout << "On get" << tot << endl;
+        }
+    }
+
+    return tot;
+}
+
+int Game::setScore(int score){
+    int tot = (countTiles());
+    score += tot;
+
+    return score;
+}
+
+int Game::setScoreMax(int score, int scoreMax){
+    if (score > scoreMax)
+        return score;
+    else
+        return scoreMax;
+}
 //void Game::setTile(int x, int y, int value)
 //{
 
