@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <QObject>
+#include <QList>
 #include<matrix.h>
 
 using namespace std;
@@ -23,6 +24,8 @@ public:
 
     Q_PROPERTY(QString scoreQML READ readScore NOTIFY scoresChanged)
     Q_PROPERTY(QString scoreMaxQML READ readScoreMax NOTIFY scoresChanged)
+    Q_PROPERTY(QList<QString> tileQML READ readTiles(0) NOTIFY tilesChanged)
+    QList<QString> readTiles();
     QString readScore();
     QString readScoreMax();
 
@@ -30,6 +33,7 @@ public:
 //    bool isGameOver();
 signals:
     void scoresChanged();
+    void tilesChanged();
 
 
 

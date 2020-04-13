@@ -9,6 +9,7 @@
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQmlComponent>
+#include <QList>
 
 
 #include "game.h"
@@ -124,6 +125,7 @@ void Game::move(int direction)
     bool gameOver = isGameOver();
     cout << "Game Over ? : "<<gameOver<<" ";
     updateScores();
+    tilesChanged();
 }
 
 
@@ -201,6 +203,15 @@ QString Game::readScoreMax(){
     return QString::number(scoreMax);
 }
 
+QList<QString> Game::readTiles(){
+    QList<QString> gameTiles;
+    for (int i= 0; i<size; i++){
+        for (int j = 0; j<size; j++){
+            gameTiles.push_back(QString::number(board->Get(i,j)));
+        }
+    }
+    return gameTiles;
+}
 
 // ---------------------------------------------------------------------------------
 

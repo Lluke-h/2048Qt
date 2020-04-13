@@ -34,6 +34,7 @@ Window {
                     vueObjetCpt.increment();
                     game.move(2);
 
+
                     break;
                 case Qt.Key_Left:
                     game.move(3);

@@ -19,7 +19,7 @@ Item {
 
         Text {
             id: element
-            text: qsTr("160258")
+            text: game.tileQML[index]
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.fill: parent
