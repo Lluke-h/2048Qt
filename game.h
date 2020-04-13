@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE void move(int direction);
     Q_INVOKABLE void countScore();
     Q_INVOKABLE void initGame();
+    Q_INVOKABLE void setSize(int newSize);
     Q_INVOKABLE void isGameOver();
     void updateScores();
 

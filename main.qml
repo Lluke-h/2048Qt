@@ -85,7 +85,7 @@ Window {
                 anchors.fill: parent
                 onClicked: {
                     if (parent.parent.opacity == 1){
-                        game.initGame();
+                        setSize.opacity= 1;
                     }
                 }
             }
@@ -95,7 +95,7 @@ Window {
             Text {
                 id: retryBoxText
                 color: "#868686"
-                text: qsTr("RETRY")
+                text: qsTr("RETRY - SET SIZE")
                 font.pixelSize: 20
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -103,6 +103,96 @@ Window {
         }
 
     }
+
+    Rectangle {
+        id: setSize
+        opacity: 0
+        z: 1
+        width: 0.5 * parent.width
+        height: 0.8 * parent.height
+        color: "#eeeeee"
+        radius: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+
+
+        Text {
+            id: setSizeText
+            color: "#222222"
+            font.family: "Verdana"
+            text: qsTr("Choose your grid size")
+            anchors.top: parent.top
+            anchors.margins: 8
+            font.pixelSize: 20
+        }
+
+        Repeater{
+
+            model: 5
+            Rectangle {
+                id: setSizeOption
+                width: 0.9 * parent.width
+                height: 0.1 * parent.height
+                color: "#bdbdbd"
+                radius: 10
+                //opacity: parent.opacity
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: 80 +50*index
+                anchors.margins: 8
+
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        if (parent.parent.opacity == 1){
+                            game.setSize(index+3);
+                            parent.parent.opacity = 0;
+                        }
+                    }
+                }
+
+
+
+                Text {
+                    id: setSizeOptionText
+                    color: "#868686"
+                    text: qsTr(String(index+3))
+                    font.pixelSize: 20
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     Column {
@@ -265,7 +355,7 @@ Window {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        game.initGame();
+                        setSize.opacity = 1;
                     }
 
 
@@ -274,7 +364,7 @@ Window {
                 Text {
                     id: retryText
                     color: "#333333"
-                    text: qsTr("RETRY")
+                    text: qsTr("RETRY\nSET SIZE")
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                     font.pixelSize: 10

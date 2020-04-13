@@ -142,6 +142,7 @@ void Game::initGame(){
     updateScores();
     board->Resize(size);
     fusionMatrix->Resize(size);
+    tilesChanged();
     board->Print();
     addTileRandom();
     addTileRandom();
@@ -151,6 +152,11 @@ void Game::initGame(){
     updateScores();
     tilesChanged();
     gameOverChanged();
+}
+
+void Game::setSize(int newSize){
+    size = newSize;
+    initGame();
 }
 
 void Game::addTileRandom()
