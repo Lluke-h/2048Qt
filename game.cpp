@@ -24,7 +24,7 @@ Game::Game(QObject *parent) : QObject(parent)
     scoreMax = 0;
     bool gameOver = true;
 
-    initGame(size);
+    initGame();
 
     //board->Print();
     //score = setScore(score, size);
@@ -133,7 +133,7 @@ void Game::move(int direction)
 
 //}
 
-void Game::initGame(int size){
+void Game::initGame(){
     score = 0;
     updateScores();
     board->Resize(size);
@@ -174,9 +174,8 @@ void Game::updateScores()
 {
     countScore(); // update the current score
     if (score > scoreMax)
-    {
         scoreMax = score;
-    }
+
     scoresChanged(); // update score in the QML
 }
 

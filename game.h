@@ -17,7 +17,7 @@ public:
     Q_INVOKABLE void addTileRandom();
     Q_INVOKABLE void move(int direction);
     Q_INVOKABLE void countScore();
-    Q_INVOKABLE void initGame(int size);
+    Q_INVOKABLE void initGame();
     Q_INVOKABLE bool isGameOver();
     void updateScores();
 
