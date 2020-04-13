@@ -232,37 +232,12 @@ Window {
                 columns: 4
 
                 Repeater{
-                    model: 6
+                    model: gameGrid.rows * gameGrid.columns
                     Tile{
                         width : backgroundGrid.width / backgroundGrid.columns
                         height: backgroundGrid.height / backgroundGrid.rows
-
-
+                        opacity: 100
                     }
-
-
-                }
-                Repeater{
-                    model: 2
-                    Tile{
-                        width : backgroundGrid.width / backgroundGrid.columns
-                        height: backgroundGrid.height / backgroundGrid.rows
-                        opacity: 0
-
-
-                    }
-
-
-                }
-                Repeater{
-                    model: 6
-                    Tile{
-                        width : backgroundGrid.width / backgroundGrid.columns
-                        height: backgroundGrid.height / backgroundGrid.rows
-
-
-                    }
-
 
                 }
 
