@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <math.h>
 #include <time.h>
 #include <iostream>
 #include <iomanip>
@@ -211,6 +212,27 @@ QList<QString> Game::readTiles(){
         }
     }
     return gameTiles;
+}
+QList<float> Game::readTilesColor(){
+    QList<float> gameTilesColor;
+    float color;
+    float opacity;
+    for (int i= 0; i<size; i++){
+        for (int j = 0; j<size; j++){
+            color = (board->Get(i,j));
+            if (color == 0){
+                color = 1;
+                opacity = 0;
+            }
+            else{
+                color = log(color)*16*4/1000;
+                opacity = 1;
+            }
+            gameTilesColor.push_back(color);
+            gameTilesColor.push_back(opacity);
+        }
+    }
+    return gameTilesColor;
 }
 
 // ---------------------------------------------------------------------------------

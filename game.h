@@ -24,7 +24,9 @@ public:
 
     Q_PROPERTY(QString scoreQML READ readScore NOTIFY scoresChanged)
     Q_PROPERTY(QString scoreMaxQML READ readScoreMax NOTIFY scoresChanged)
-    Q_PROPERTY(QList<QString> tileQML READ readTiles(0) NOTIFY tilesChanged)
+    Q_PROPERTY(QList<QString> tileQML READ readTiles NOTIFY tilesChanged)
+    Q_PROPERTY(QList<float> tileColorQML READ readTilesColor NOTIFY tilesChanged)
+    QList<float> readTilesColor();
     QList<QString> readTiles();
     QString readScore();
     QString readScoreMax();

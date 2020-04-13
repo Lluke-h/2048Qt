@@ -7,7 +7,8 @@ Item {
 
     Rectangle {
         id: tileRect
-        color: "#fbf8c8"
+        //color: game.tileColorQML[index]
+        color: Qt.rgba(game.tileColorQML[2*index], 1, 1, game.tileColorQML[2*index+1])
         radius: 7
 
 
@@ -19,6 +20,7 @@ Item {
 
         Text {
             id: element
+            opacity: game.tileColorQML[2*index+1]
             text: game.tileQML[index]
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
