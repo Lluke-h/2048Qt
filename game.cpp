@@ -38,18 +38,18 @@ Game::Game(QObject *parent) : QObject(parent)
      //   cout << "========================= SCORE " << score << endl;
      //   over = isGameOver(size);
     //}
-    int c = 0;
-    for(int i = 0; i<size; i++)
-    {
-        for (int j = 0; j<size; j++){
-            c = ((rand()%100)+1)*2;
-            board->Set(i,j,c);
-            board->Print();
-            gameOver = isGameOver();
-            cout << "END ?" << gameOver << endl;
+//    int c = 0;
+//    for(int i = 0; i<2; i++)
+//    {
+//        for (int j = 0; j<3; j++){
+//            c = ((rand()%50)+1)*2;
+//            board->Set(i,j,c);
+//            board->Print();
+//            gameOver = isGameOver();
+//            cout << "END ?" << gameOver << endl;
 
-        }
-    }
+//        }
+//    }
 
 
 
@@ -79,7 +79,7 @@ tuple<bool, bool> Game::isMovePossible(int row, int col, int nextRow, int nextCo
     return {movePossible, isFusion};
 }
 
-bool Game::move(int direction, bool trying) //trying is for gameOver
+void Game::move(int direction)
 {
     int startRow = 0, startCol = 0, rowStep = 1, colStep = 1;
     int rowDir[] = {1, 0, -1, 0};
@@ -101,14 +101,13 @@ bool Game::move(int direction, bool trying) //trying is for gameOver
         colStep = -1;
     }
     do{
-        cout << "LLLLLLLLLLLLLLOOOOOOOOOOOOOOOOOOOOOOP" << endl;
         somethingMoved = false;
         for (int i = startRow; i>=0 && i<size; i += rowStep)
             for (int j = startCol; j>=0 && j<size; j+= colStep)
             {
                 int nextRow = i + rowDir[direction], nextCol = j + colDir[direction];
                 auto [movePossible, isFusion] = isMovePossible(i, j, nextRow, nextCol);
-                if (movePossible && !trying)
+                if (movePossible)
                 {
                     board->Set(nextRow, nextCol,board->Get(nextRow, nextCol) + board->Get(i,j) );
                     board->Set(i,j,0);
@@ -116,19 +115,15 @@ bool Game::move(int direction, bool trying) //trying is for gameOver
                     if (isFusion)
                         fusionMatrix->Set(nextRow, nextCol, 1);
                 }
-                else if (trying && (movePossible || isFusion))
-                    over = true;
-
              }
-
-
             }while(somethingMoved);
-
-
-    if (addTile && !trying)
+    if (addTile)
         addTileRandom();
 
-    return over;
+    board->Print();
+    bool gameOver = isGameOver();
+    cout << "Game Over ? : "<<gameOver<<" ";
+    updateScores();
 }
 
 
@@ -139,11 +134,14 @@ bool Game::move(int direction, bool trying) //trying is for gameOver
 //}
 
 void Game::initGame(int size){
+    score = 0;
+    updateScores();
     board->Resize(size);
     fusionMatrix->Resize(size);
     board->Print();
     addTileRandom();
     addTileRandom();
+    board->Print();
 }
 
 void Game::addTileRandom()
@@ -169,20 +167,21 @@ void Game::addTileRandom()
 
 }
 
-int Game::countTiles(int size)
-{
-    int tot = 0;
-    for(int i = 0; i<size; i++){
-        for (int j = 0; j<size; j++){
-            tot += (board->Get(i,j));
-            //cout << "On get" << tot << endl;
-        }
-    }
 
-    return tot;
+// ----------------------------- Score Handling -----------------------------------
+
+void Game::updateScores()
+{
+    countScore(); // update the current score
+    if (score > scoreMax)
+    {
+        scoreMax = score;
+    }
+    scoresChanged(); // update score in the QML
 }
 
-int Game::setScore(int score, int size){
+
+void Game::countScore(){
     int tot = 0;
     int c;
     for(int i = 0; i<size; i++){
@@ -193,39 +192,19 @@ int Game::setScore(int score, int size){
         }
     }
     score += tot;
-
-    return score;
 }
 
-int Game::setScoreMax(int score, int scoreMax){
-    if (score > scoreMax)
-        return score;
-    else
-        return scoreMax;
+
+QString Game::readScore(){
+    return QString::number(score);
+}
+QString Game::readScoreMax(){
+    return QString::number(scoreMax);
 }
 
-//bool Game::isGameOver(){
-//    bool gameOver = true;
-//    int c;
-//    for (int i = 0; i < size; i++){
-//        for (int j = 0; j < size; j++){
-//            c = board->Get(i,j);
-//            if (c == 0){
-//                gameOver = false; //if a space is empty : possibility to carry on
-//                cout << "Still an empty tile";}
 
-//            // if a an adjacent Tile is the same a fusion move is possible : carry on
-//            else if (i<size-1 && j<size-1)
-//            {
-//                if (board->Get(i+1,j)==c || board->Get(i,j+1==c))
-//                {
-//                    gameOver = false;
-//                }
-//            }
-//        }
-//    }
-//    return gameOver;
-//    }
+// ---------------------------------------------------------------------------------
+
 
 bool Game::isGameOver(){
     bool gameOver = true;
@@ -236,12 +215,11 @@ bool Game::isGameOver(){
         while(j<size && gameOver)
         {
             c = board->Get(i,j);
-            if (c==0){gameOver = false, cout<<"Still empty space !!!";}
-            else if (i<size-1 && j<size-1){
-                if (board->Get(i+1,j)==c || board->Get(i,j+1)==c){
+            if (c==0)
+                gameOver = false;
+            else if ((i!=size-1 && board->Get(i+1,j)==c)
+                     ||(j!=size-1 && board->Get(i,j+1)==c)){
                     gameOver = false;
-                    cout<<"COMP "<<c<<board->Get(i+1,j)<< board->Get(i,j+1);
-                    }
                 }
         j ++;
         }

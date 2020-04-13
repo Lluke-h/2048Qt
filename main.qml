@@ -81,7 +81,7 @@ Window {
                         id: scoreBestValue
                         focus: true
                         color: "#444444"
-                        text: vueObjetCpt.cptQML
+                        text: game.scoreMaxQML
                         font.family: "Verdana"
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignHCenter
@@ -113,7 +113,7 @@ Window {
                     Text {
                         id: scoreValue
                         color: "#444444"
-                        text: vueObjetCpt.cptQML
+                        text: game.scoreQML
                         focus: true
                         verticalAlignment: Text.AlignVCenter
                         font.family: "Verdana"
