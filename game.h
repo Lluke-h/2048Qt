@@ -20,7 +20,7 @@ public:
     Q_INVOKABLE int countTiles(int size);
     Q_INVOKABLE int setScoreMax(int score, int scoreMax);
     Q_INVOKABLE void initGame(int size);
-    Q_INVOKABLE bool isGameOver(int size);
+    Q_INVOKABLE bool isGameOver();
 
 //    void DisplayBoard();
 //    bool isGameOver();

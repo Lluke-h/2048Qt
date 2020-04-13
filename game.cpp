@@ -22,9 +22,10 @@ Game::Game(QObject *parent) : QObject(parent)
     size = 4;
     score = 0;
     scoreMax = 0;
-    bool notOver = true;
+    bool gameOver = true;
 
-    initGame(int size);
+    initGame(size);
+
     //board->Print();
     //score = setScore(score, size);
     //scoreMax = setScoreMax(score, scoreMax);
@@ -41,14 +42,15 @@ Game::Game(QObject *parent) : QObject(parent)
     for(int i = 0; i<size; i++)
     {
         for (int j = 0; j<size; j++){
-            c = ((rand()%2)+1)*2;
+            c = ((rand()%100)+1)*2;
             board->Set(i,j,c);
             board->Print();
+            gameOver = isGameOver();
+            cout << "END ?" << gameOver << endl;
 
         }
     }
-    notOver = isGameOver(size);
-    cout << "END ?" << notOver << endl;
+
 
 
 
@@ -202,20 +204,52 @@ int Game::setScoreMax(int score, int scoreMax){
         return scoreMax;
 }
 
-bool Game::isGameOver(int size){
-    bool end = false;
-    int c;
-    for (int i = 0; i < size; i++){
-        for (int j = 0; j < size; j++){
+//bool Game::isGameOver(){
+//    bool gameOver = true;
+//    int c;
+//    for (int i = 0; i < size; i++){
+//        for (int j = 0; j < size; j++){
+//            c = board->Get(i,j);
+//            if (c == 0){
+//                gameOver = false; //if a space is empty : possibility to carry on
+//                cout << "Still an empty tile";}
+
+//            // if a an adjacent Tile is the same a fusion move is possible : carry on
+//            else if (i<size-1 && j<size-1)
+//            {
+//                if (board->Get(i+1,j)==c || board->Get(i,j+1==c))
+//                {
+//                    gameOver = false;
+//                }
+//            }
+//        }
+//    }
+//    return gameOver;
+//    }
+
+bool Game::isGameOver(){
+    bool gameOver = true;
+    int c, i=0, j=0;
+    while(i<size && gameOver)
+    {
+        j = 0;
+        while(j<size && gameOver)
+        {
             c = board->Get(i,j);
-            if (c == 0)
-                end = true; //if a space is empty : possibility to carry on
+            if (c==0){gameOver = false, cout<<"Still empty space !!!";}
+            else if (i<size-1 && j<size-1){
+                if (board->Get(i+1,j)==c || board->Get(i,j+1)==c){
+                    gameOver = false;
+                    cout<<"COMP "<<c<<board->Get(i+1,j)<< board->Get(i,j+1);
+                    }
+                }
+        j ++;
         }
+    i++;
     }
-    if (!end) //if a move is possible
-        end = move(0, true) || move(1, true) || move(2, true) || move(3, true);
-    return end;
+    return gameOver;
 }
+
 //void Game::setTile(int x, int y, int value)
 //{
 
