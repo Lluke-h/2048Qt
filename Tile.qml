@@ -1,5 +1,6 @@
 import QtQuick 2.0
 
+
 Item {
     id : tile
     width : gameGrid.width / gameGrid.columns
@@ -7,8 +8,9 @@ Item {
 
     Rectangle {
         id: tileRect
-        //color: game.tileColorQML[index]
-        color: Qt.rgba(game.tileColorQML[2*index], 1, 1, game.tileColorQML[2*index+1])
+
+
+        color: Qt.rgba(1-Math.log(element.text)/5, 0.9-(Math.log(element.text)/Math.log(2))/23, 0.1+(Math.log(element.text)/Math.log(4))/15, element.opacity)
         radius: 7
 
 
