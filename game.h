@@ -25,12 +25,14 @@ public:
 
     Q_PROPERTY(QString scoreQML READ readScore NOTIFY scoresChanged)
     Q_PROPERTY(QString scoreMaxQML READ readScoreMax NOTIFY scoresChanged)
+    Q_PROPERTY(QString sizeQML READ readSize NOTIFY sizeChanged)
     Q_PROPERTY(QList<QString> tileQML READ readTiles NOTIFY tilesChanged)
     Q_PROPERTY(QString gameOverQML READ readGameOver NOTIFY gameOverChanged)
     QList<QString> readTiles();
     QString readScore();
     QString readScoreMax();
     QString readGameOver();
+    QString readSize();
 
 //    void DisplayBoard();
 //    bool isGameOver();
@@ -38,6 +40,7 @@ signals:
     void scoresChanged();
     void tilesChanged();
     void gameOverChanged();
+    void sizeChanged();
 
 
 

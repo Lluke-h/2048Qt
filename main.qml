@@ -146,6 +146,10 @@ Window {
                     onClicked: {
                         if (parent.parent.opacity == 1){
                             game.setSize(index+3);
+                            gameGrid.rows = game.sizeQML;
+                            gameGrid.columns = game.sizeQML;
+                            backgroundGrid.rows = game.sizeQML;
+                            backgroundGrid.columns = game.sizeQML;
                             parent.parent.opacity = 0;
                         }
                     }

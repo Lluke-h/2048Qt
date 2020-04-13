@@ -21,12 +21,10 @@ using namespace std;
 
 Game::Game(QObject *parent) : QObject(parent)
 {
-    size = 4;
     score = 0;
     scoreMax = 0;
     gameOver = 1;
-
-    initGame();
+    setSize(4);
 
     //board->Print();
     //score = setScore(score, size);
@@ -139,9 +137,10 @@ void Game::move(int direction)
 //}
 
 void Game::initGame(){
-    updateScores();
+
     board->Resize(size);
     fusionMatrix->Resize(size);
+    cout << "Resize ok" << endl;
     tilesChanged();
     board->Print();
     addTileRandom();
@@ -156,6 +155,7 @@ void Game::initGame(){
 
 void Game::setSize(int newSize){
     size = newSize;
+    sizeChanged();
     initGame();
 }
 
@@ -217,6 +217,10 @@ QString Game::readScoreMax(){
 }
 QString Game::readGameOver(){
     return QString::number(gameOver);
+}
+
+QString Game::readSize(){
+    return QString::number(size);
 }
 
 QList<QString> Game::readTiles(){

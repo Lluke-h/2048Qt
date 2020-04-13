@@ -58,9 +58,9 @@ void Matrix::Resize(int newSize)
         fSize = newSize;
     else
         fSize = 4;
-
     AllocateMatrix();
     InitMatrix(0);
+
 }
 
 void Matrix::Print()
@@ -79,7 +79,6 @@ void Matrix::Print()
 
 int Matrix::Get(int row, int col)
 {
-
     assert(col >= 0 && col < fSize);
     assert(row >= 0 && row < fSize);
 
