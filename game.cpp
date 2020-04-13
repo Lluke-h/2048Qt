@@ -24,7 +24,7 @@ Game::Game(QObject *parent) : QObject(parent)
     size = 4;
     score = 0;
     scoreMax = 0;
-    bool gameOver = true;
+    gameOver = 1;
 
     initGame();
 
@@ -123,11 +123,13 @@ void Game::move(int direction)
         addTileRandom();
 
     board->Print();
-    bool gameOver = isGameOver();
+    isGameOver();
     cout << "Game Over ? : "<<gameOver<<" ";
     updateScores();
     tilesChanged();
+    gameOverChanged();
 }
+
 
 
 
@@ -137,7 +139,6 @@ void Game::move(int direction)
 //}
 
 void Game::initGame(){
-    score = 0;
     updateScores();
     board->Resize(size);
     fusionMatrix->Resize(size);
@@ -145,6 +146,11 @@ void Game::initGame(){
     addTileRandom();
     addTileRandom();
     board->Print();
+    score = 0;
+    gameOver = 0;
+    updateScores();
+    tilesChanged();
+    gameOverChanged();
 }
 
 void Game::addTileRandom()
@@ -203,43 +209,29 @@ QString Game::readScore(){
 QString Game::readScoreMax(){
     return QString::number(scoreMax);
 }
+QString Game::readGameOver(){
+    return QString::number(gameOver);
+}
 
 QList<QString> Game::readTiles(){
     QList<QString> gameTiles;
     for (int i= 0; i<size; i++){
         for (int j = 0; j<size; j++){
             gameTiles.push_back(QString::number(board->Get(i,j)));
+            if(board->Get(i,j) == 0)
+                gameTiles.push_back(QString::number(0));
+            else
+                gameTiles.push_back(QString::number(1));
         }
     }
     return gameTiles;
-}
-QList<float> Game::readTilesColor(){
-    QList<float> gameTilesColor;
-    float color;
-    float opacity;
-    for (int i= 0; i<size; i++){
-        for (int j = 0; j<size; j++){
-            color = (board->Get(i,j));
-            if (color == 0){
-                color = 1;
-                opacity = 0;
-            }
-            else{
-                color = log(color)*16*4/1000;
-                opacity = 1;
-            }
-            gameTilesColor.push_back(color);
-            gameTilesColor.push_back(opacity);
-        }
-    }
-    return gameTilesColor;
 }
 
 // ---------------------------------------------------------------------------------
 
 
-bool Game::isGameOver(){
-    bool gameOver = true;
+void Game::isGameOver(){
+    gameOver = 1;
     int c, i=0, j=0;
     while(i<size && gameOver)
     {
@@ -247,17 +239,19 @@ bool Game::isGameOver(){
         while(j<size && gameOver)
         {
             c = board->Get(i,j);
-            if (c==0)
-                gameOver = false;
+            if (c==0){
+                gameOver = 0;
+            }
+
             else if ((i!=size-1 && board->Get(i+1,j)==c)
                      ||(j!=size-1 && board->Get(i,j+1)==c)){
-                    gameOver = false;
+                    gameOver = 0;
                 }
         j ++;
         }
     i++;
     }
-    return gameOver;
+    gameOverChanged();
 }
 
 //void Game::setTile(int x, int y, int value)

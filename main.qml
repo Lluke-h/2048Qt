@@ -15,6 +15,95 @@ Window {
     minimumHeight: 400
     title: qsTr("2048Qt")
 
+    Rectangle {
+        id: gameOver
+        opacity: game.gameOverQML
+        //opacity: 1
+        z: 1;
+        width: 0.8 * parent.width
+        height: 0.4 * parent.height
+        color: "#eeeeee"
+        radius: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+
+
+        Text {
+            id: gameOverText
+            color: "#222222"
+            font.family: "Verdana"
+            text: qsTr("GAME OVER")
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            font.pixelSize: 30
+        }
+
+        Rectangle {
+            id: quit
+            width: 0.4 * parent.width
+            height: 0.2 * parent.height
+            color: "#bdbdbd"
+            radius: 10
+            //opacity: parent.opacity
+            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+            anchors.margins: 8
+
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if (parent.parent.opacity == 1){
+                        Qt.quit();
+                    }
+                }
+            }
+
+
+
+            Text {
+                id: quitText
+                color: "#868686"
+                text: qsTr("QUIT")
+                font.pixelSize: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+        Rectangle {
+            id: retryBox
+            width: 0.4 * parent.width
+            height: 0.2 * parent.height
+            color: "#bdbdbd"
+            radius: 10
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.margins: 8
+
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if (parent.parent.opacity == 1){
+                        game.initGame();
+                    }
+                }
+            }
+
+
+
+            Text {
+                id: retryBoxText
+                color: "#868686"
+                text: qsTr("RETRY")
+                font.pixelSize: 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+    }
+
 
     Column {
         id: column
@@ -166,11 +255,31 @@ Window {
                 id: retry
                 x: 297
                 y: 22
-                height: 0.5 * parent.height
-                width: height
-                color: "#ffffff"
+                width: 0.1 * parent.width
+                height: 0.8 * parent.height
+                color: "#888888"
+                radius: 10
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.verticalCenter: parent.verticalCenter
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        game.initGame();
+                    }
+
+
+                }
+
+                Text {
+                    id: retryText
+                    color: "#333333"
+                    text: qsTr("RETRY")
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.pixelSize: 10
+                }
+
             }
 
 

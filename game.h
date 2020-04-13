@@ -19,23 +19,24 @@ public:
     Q_INVOKABLE void move(int direction);
     Q_INVOKABLE void countScore();
     Q_INVOKABLE void initGame();
-    Q_INVOKABLE bool isGameOver();
+    Q_INVOKABLE void isGameOver();
     void updateScores();
 
     Q_PROPERTY(QString scoreQML READ readScore NOTIFY scoresChanged)
     Q_PROPERTY(QString scoreMaxQML READ readScoreMax NOTIFY scoresChanged)
     Q_PROPERTY(QList<QString> tileQML READ readTiles NOTIFY tilesChanged)
-    Q_PROPERTY(QList<float> tileColorQML READ readTilesColor NOTIFY tilesChanged)
-    QList<float> readTilesColor();
+    Q_PROPERTY(QString gameOverQML READ readGameOver NOTIFY gameOverChanged)
     QList<QString> readTiles();
     QString readScore();
     QString readScoreMax();
+    QString readGameOver();
 
 //    void DisplayBoard();
 //    bool isGameOver();
 signals:
     void scoresChanged();
     void tilesChanged();
+    void gameOverChanged();
 
 
 
@@ -44,6 +45,7 @@ private:
     int size;
     int score;
     int scoreMax;
+    int gameOver;
     Matrix * board = new Matrix(1);
     Matrix * fusionMatrix = new Matrix(1); // saves fusioned cells to prevent fusion of 3 cells in one move
 

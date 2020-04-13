@@ -10,7 +10,8 @@ Item {
         id: tileRect
 
 
-        color: Qt.rgba(1-Math.log(element.text)/5, 0.9-(Math.log(element.text)/Math.log(2))/23, 0.1+(Math.log(element.text)/Math.log(4))/15, element.opacity)
+        color: Qt.rgba(1-Math.log(element.text)/5+Math.floor(Math.log(element.text)/(Math.log(2048))), 0.9-(Math.log(element.text)/(Math.log(2)*23))-Math.floor(Math.log(element.text)/(Math.log(2048))), 0.1+(Math.log(element.text)/(Math.log(4)*13)), element.opacity)
+
         radius: 7
 
 
@@ -22,8 +23,8 @@ Item {
 
         Text {
             id: element
-            opacity: game.tileColorQML[2*index+1]
-            text: game.tileQML[index]
+            opacity: game.tileQML[2*index+1]
+            text: game.tileQML[2*index]
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.fill: parent
