@@ -15,7 +15,7 @@ Window {
     minimumHeight: 400
     title: qsTr("2048Qt")
 
-    Rectangle {
+    Rectangle {                      //for the Game Over window: it appears when you lose the game, setting the opacity to 1
         id: gameOver
         opacity: game.gameOverQML
         //opacity: 1
@@ -38,7 +38,7 @@ Window {
             font.pixelSize: 30
         }
 
-        Rectangle {
+        Rectangle {  //mouse area to quit the game
             id: quit
             width: 0.4 * parent.width
             height: 0.2 * parent.height
@@ -53,7 +53,7 @@ Window {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    if (parent.parent.opacity == 1){
+                    if (parent.parent.opacity == 1){   //if the GameOver window is not visible, we cannot click on these options
                         Qt.quit();
                     }
                 }
@@ -71,7 +71,7 @@ Window {
             }
         }
 
-        Rectangle {
+        Rectangle {   //mouse area to retry and/or set a new size for the grid
             id: retryBox
             width: 0.4 * parent.width
             height: 0.2 * parent.height
@@ -104,7 +104,7 @@ Window {
 
     }
 
-    Rectangle {
+    Rectangle { //a window to set the size of the grid. It has 5 children (3 to 7) that represents a new size of the grid. You can choose the same that you just used if you dont want to try a new size of grid
         id: setSize
         opacity: 0
         z: 1
@@ -141,11 +141,11 @@ Window {
                 anchors.margins: 8
 
 
-                MouseArea{
+                MouseArea{  //it triggers resizing of the interface
                     anchors.fill: parent
                     onClicked: {
                         if (parent.parent.opacity == 1){
-                            game.setSize(index+3);
+                            game.setSize(index+3); //it send the new size of the grid to the game
                             gameGrid.rows = game.sizeQML;
                             gameGrid.columns = game.sizeQML;
                             backgroundGrid.rows = game.sizeQML;
@@ -178,22 +178,6 @@ Window {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -236,7 +220,7 @@ Window {
             }
 
 
-            Row {
+            Row {                        //a row for scores and retry button
                 id: scores
                 width: parent.width * 0.4
                 height: parent.height
@@ -244,9 +228,6 @@ Window {
                 anchors.rightMargin: 6
                 spacing: 6
                 layoutDirection: Qt.RightToLeft
-
-
-
 
 
 
@@ -323,13 +304,9 @@ Window {
 
 
 
-
-
-
-
             }
 
-            Text {
+            Text {  //Title of the game
                 id: title
                 x: 20
                 y: 17

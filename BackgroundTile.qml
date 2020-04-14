@@ -1,4 +1,6 @@
 import QtQuick 2.0
+// To lighten the code in main.qml : repeater of the background tiles
+
 
 Item {
     id : bgTile
