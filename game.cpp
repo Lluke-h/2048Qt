@@ -110,13 +110,16 @@ void Game::initGame(){
     tilesChanged(); //slot to adapt our interface
     board->Print();
     addTileRandom(); //first, we begin with two single tiles
+    board->Print();
     addTileRandom();
+    cout << "tile added" << endl;
     board->Print();
     score = 0;
     gameOver = 0;
     updateScores(); //slot for our interface
     tilesChanged();
     gameOverChanged();
+
 }
 
 
@@ -135,6 +138,7 @@ void Game::addTileRandom()
     bool notAdded = true;
     int i = 0, j = 0;
     int c = 0;
+    int ok = 0;
     int emptySpaces = 0;
     for (i = 0; i<size; i++){  //we count empty spaces on the grid
         for (j = 0; j<size; j++){
@@ -152,12 +156,15 @@ void Game::addTileRandom()
             if (board->Get(i,j) == 0){
                 if (n == 0){
                     board->Set(i,j,val); //we find the empty space we have chosen and we set it
+                    ok = 1;
                     break;
                 }
                 else
                     n--;
             }
         }
+        if (ok)
+            break;
     }
     cout << n << endl;
     //cout << board->Get(i,j) << endl ;
